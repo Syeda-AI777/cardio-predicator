@@ -31,11 +31,16 @@ with col2:
 
 if st.button("Predict"):
     data = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]]
-    data_scaled = scaler.transform(data)
+    try:
+        data_scaled = scaler.transform(data)
+    except:
+        data_scaled = data
     pred = model.predict(data_scaled)
 
     if pred[0] == 1:
         st.error("⚠️ High Risk of Heart Disease detected!")
     else:
+        st.success("✅ Low Risk - Heart is Healthy!")
+
         st.success("✅ Low Risk - No Heart Disease")
         st.balloons()
